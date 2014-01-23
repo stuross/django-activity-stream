@@ -88,9 +88,12 @@ class GFKQuerySet(QuerySet):
                     continue
 
         return qs
-
+        
     def none(self):
-        return self._clone(klass=EmptyGFKQuerySet)
+        clone = self._clone(klass=EmptyGFKQuerySet)
+        clone.query.set_empty()
+        return clone
+        
 
 
 class EmptyGFKQuerySet(GFKQuerySet, EmptyQuerySet):
